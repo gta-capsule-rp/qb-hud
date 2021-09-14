@@ -142,31 +142,13 @@ const playerHud = {
       this.voice = data.voice;
       this.talking = data.talking;
       this.radio = data.radio;
-      if (data.health >= 100) {
-        this.showHealth = false;
-      } else {
-        this.showHealth = true;
-      }
-      if (data.armor <= 0) {
-        this.showArmor = false;
-      } else {
-        this.showArmor = true;
-      }
-      if (data.hunger >= 100) {
-        this.showHunger = false;
-      } else {
-        this.showHunger = true;
-      }
-      if (data.thirst >= 100) {
-        this.showThirst = false;
-      } else {
-        this.showThirst = true;
-      }
-      if (data.stress <= 0) {
-        this.showStress = false;
-      } else {
-        this.showStress = true;
-      }
+      
+      this.showHealth = true;
+      this.showArmor = true;
+      this.showHunger = true;
+      this.showThirst = true;
+      this.showStress = true;
+      
       if (data.talking) {
         this.talkingColor = "#FFFF00";
       } else {
