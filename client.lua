@@ -94,41 +94,39 @@ Citizen.CreateThread(function()
             local vehicle = GetVehiclePedIsIn(player)
             local isBicycle = IsThisModelABicycle(vehicle)
             
-            local hasGPS = false
-            QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
-                hasGPS = result            
-            end, "phone")
+            QBCore.Functions.TriggerCallback('QBCore:HasItem', function(hasGPS)          
                             
-            if (inVehicle and not isBicycle) or hasGPS then
-                DisplayRadar(true)
-                radarActive = true
-                local pos = GetEntityCoords(player)
-                local speed = GetEntitySpeed(vehicle) * 2.23694
-                local street1, street2 = GetStreetNameAtCoord(pos.x, pos.y, pos.z, Citizen.ResultAsInteger(),
-                    Citizen.ResultAsInteger())
-                local fuel = exports['LegacyFuel']:GetFuel(vehicle)
-                SendNUIMessage({
-                    action = 'car',
-                    show = true,
-                    isPaused = IsPauseMenuActive(),
-                    direction = GetDirectionText(GetEntityHeading(player)),
-                    street1 = GetStreetNameFromHashKey(street1),
-                    street2 = GetStreetNameFromHashKey(street2),
-                    seatbelt = seatbeltOn,
-                    cruise = cruiseOn,
-                    speed = math.ceil(speed),
-                    nos = nos,
-                    fuel = fuel
-                })
-            else
-                SendNUIMessage({
-                    action = 'car',
-                    show = false,
-                    seatbelt = false
-                })
-                DisplayRadar(false)
-                radarActive = false
-            end
+                if (inVehicle and not isBicycle) or hasGPS then
+                    DisplayRadar(true)
+                    radarActive = true
+                    local pos = GetEntityCoords(player)
+                    local speed = GetEntitySpeed(vehicle) * 2.23694
+                    local street1, street2 = GetStreetNameAtCoord(pos.x, pos.y, pos.z, Citizen.ResultAsInteger(),
+                        Citizen.ResultAsInteger())
+                    local fuel = exports['LegacyFuel']:GetFuel(vehicle)
+                    SendNUIMessage({
+                        action = 'car',
+                        show = true,
+                        isPaused = IsPauseMenuActive(),
+                        direction = GetDirectionText(GetEntityHeading(player)),
+                        street1 = GetStreetNameFromHashKey(street1),
+                        street2 = GetStreetNameFromHashKey(street2),
+                        seatbelt = seatbeltOn,
+                        cruise = cruiseOn,
+                        speed = math.ceil(speed),
+                        nos = nos,
+                        fuel = fuel
+                    })
+                else
+                    SendNUIMessage({
+                        action = 'car',
+                        show = false,
+                        seatbelt = false
+                    })
+                    DisplayRadar(false)
+                    radarActive = false
+                end
+            end, "phone")
         else
             DisplayRadar(false)
         end
