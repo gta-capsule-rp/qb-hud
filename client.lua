@@ -93,7 +93,13 @@ Citizen.CreateThread(function()
             local inVehicle = IsPedInAnyVehicle(player)
             local vehicle = GetVehiclePedIsIn(player)
             local isBicycle = IsThisModelABicycle(vehicle)
-            if inVehicle and not isBicycle then
+            
+            local hasGPS = false
+            QBCore.Functions.TriggerCallback('QBCore:HasItem', function(result)
+                hasGPS = result            
+            end, "phone")
+                            
+            if (inVehicle and not isBicycle) or hasGPS then
                 DisplayRadar(true)
                 radarActive = true
                 local pos = GetEntityCoords(player)
